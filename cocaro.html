@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+    let arrCaro = [];
+    let dong = 17;
+    let cot = 30;
+    let i = 2;
+
+    let sout = '<table align="center" border="1px solid black" cellspacing="0">';
+    for (let i = 0; i < dong; i++) {
+        sout += "<tr>";
+        arrCaro[i] = new Array(cot);
+        for (let j = 0; j < cot; j++) {
+            sout += '<td id="inputCaro' + i + ',' + j + '" onclick="clickRowCol(' + i + ", " + j + ')"></td>';
+        }
+        sout += "</tr>";
+    }
+    sout += "</table>";
+    document.write(sout);
+
+    function clickRowCol(x, y) {
+        let getData = document.getElementById("inputCaro" + x + "," + y);
+        if (i % 2 == 0) {
+            if (!getData.innerHTML) {
+                getData.innerHTML = "x";
+                i++;
+            }
+        } else {
+            if (!getData.innerHTML) {
+                getData.innerHTML = "o";
+                i++;
+            }
+        }
+
+        checkWin(x, y);
+    }
+
+    function getValueCell(x, y) {
+        let value = document.getElementById(`inputCaro${x},${y}`).innerHTML;
+        return value;
+    }
+
+    function checkWin(x, y) {
+        checkVertical(x, y);
+        checkHorizontal(x, y);
+        checkDiagonal(x, y);
+    }
+
+    function checkHorizontal(x, y) {
+        let count = 1;
+        let i = 1;
+        while (getValueCell(x, y) === getValueCell(x, y + i)) {
+            count++;
+            i++;
+        }
+
+        let j = 1;
+        while (getValueCell(x, y) === getValueCell(x, y - j)) {
+            count++;
+            j++;
+        }
+        if (count >= 5) {
+            alert("Win roi");
+        }
+    }
+
+    function checkDiagonal(x, y) {
+        let count = 1;
+        let i = 1;
+        while (getValueCell(x, y) === getValueCell(x + i, y + i)) {
+            count++;
+            i++;
+        }
+        let j = 1;
+        while (getValueCell(x, y) === getValueCell(x - j, y - j)) {
+            count++;
+            j++;
+        }
+
+        if (count >= 5) {
+            alert("Win roi");
+        }
+    }
+
+    function checkVertical(x, y) {
+        let count = 1;
+        let i = 1;
+        while (getValueCell(x, y) === getValueCell(x + i, y)) {
+            count++;
+            i++;
+        }
+        let j = 1;
+        while (getValueCell(x, y) === getValueCell(x - j, y)) {
+            count++;
+            j++;
+        }
+
+        if (count >= 5) {
+            alert("Win roi");
+        }
+    }
+
+</script>
+<style>
+    td {
+        width: 40px;
+        height: 40px;
+        text-align: center;
+        font-size: 30px;
+    }
+</style>
